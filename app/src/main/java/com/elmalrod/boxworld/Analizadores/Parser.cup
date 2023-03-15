@@ -1,0 +1,114 @@
+package com.elmalrod.boxworld.Analizadores;
+import java_cup.runtime.*;
+import java.util.LinkedList;
+
+parser code {:
+
+    public String resultado="";
+    public static LinkedList<TError> TablaES = new LinkedList<TError>();
+
+    //Metodo al que se llama automaticamente ante algun error sintactico
+    public void syntax_error(Symbol s)
+    {
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+
+        System.out.println("!!!!!!! Error Sintactico Recuperado !!!!!!!");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        TError datos = new TError(lexema,fila,columna,"Error Sintactico","Caracter no esperado");
+        TablaES.add(datos);
+
+
+    }
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        TError datos = new TError(lexema,fila,columna,"Error Sintactico","Caracter no esperado");
+        TablaES.add(datos);
+
+    }
+:};
+
+terminal numero, operacion, UP, DOWN, LEFT, RIGHT, PUSH, FLOOR, CEIL, mas, menos, por, div, para, parc, puntocoma;
+
+//----> declaracion de no terminales
+non terminal programa, sentencias, sentencia, movimiento, empujar, direccion, OPNUMERO, OBJFLOOR, OBJCEIL;
+
+//----> precedencia de menor a mayor
+precedence left mas, menos;
+precedence left por, div;
+precedence left puntocoma;
+
+/* Símbolo inicial */
+start with programa;
+
+programa ::= sentencias;
+
+sentencias ::= sentencias sentencia
+            | sentencia
+            ;
+
+sentencia ::= movimiento
+            | empujar
+            ;
+
+movimiento ::= UP para OPNUMERO parc puntocoma
+        | DOWN para OPNUMERO parc puntocoma
+        | LEFT para OPNUMERO parc puntocoma
+        | RIGHT para OPNUMERO parc puntocoma ;
+
+OPNUMERO ::=  operacion
+  |  numero
+  |  FLOOR para OBJFLOOR parc
+  |  FLOOR para OBJFLOOR parc por OPNUMERO
+  |  FLOOR para OBJFLOOR parc menos OPNUMERO
+  |  FLOOR para OBJFLOOR parc mas OPNUMERO
+  |  FLOOR para OBJFLOOR parc div OPNUMERO
+  |  CEIL para OBJCEIL parc
+  |  CEIL para OBJCEIL parc por OPNUMERO
+  |  CEIL para OBJCEIL parc menos OPNUMERO
+  |  CEIL para OBJCEIL parc mas OPNUMERO
+  |  CEIL para OBJCEIL parc div OPNUMERO;
+
+  OBJFLOOR ::=
+  operacion
+  | numero
+  | numero mas OBJFLOOR
+  | numero menos OBJFLOOR
+  | numero por OBJFLOOR
+  | numero div OBJFLOOR
+  | numero OBJFLOOR
+  | FLOOR para OBJFLOOR parc ;
+
+  OBJCEIL ::=
+  operacion
+  | numero
+  | numero mas OBJCEIL
+  | numero menos OBJCEIL
+  | numero por OBJCEIL
+  | numero div OBJCEIL
+  | numero OBJCEIL
+  | CEIL para OBJCEIL parc ;
+
+empujar ::= PUSH direccion para OPNUMERO parc puntocoma;
+
+direccion ::= LEFT
+            | RIGHT
+            | UP
+            | DOWN
+            ;
+

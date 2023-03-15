@@ -1,0 +1,74 @@
+/*--------------- 1ra Area: Codigo de Usuario -----------------------*/
+//-------> importaciones, paquetes
+package com.elmalrod.boxworld.AnalizadoresXML;
+import java_cup.runtime.*;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import com.elmalrod.boxworld.Controladores.Tabla;
+import java.util.List;
+//------> Codigo para el parser,variables, metodos
+parser code
+{:
+    public String resultado="";
+    public static LinkedList<TError> TablaES = new LinkedList<TError>();
+    public static List<TReporte> TablaRE = new ArrayList<>(); //lista de tokens
+    public static ErroresTabla f = new ErroresTabla();
+
+    String a1, o1, u1;
+    String e1, i1;
+
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        TError datos = new TError(lexema,fila,columna,"Error Sintactico","Caracter no esperado");
+        TablaES.add(datos);
+
+    }
+    public List<TReporte> display()
+    { return TablaRE;}
+
+:}
+
+//------> Codigo para las acciones gramaticales
+action code
+{:
+
+:}
+/* Clases y variables de los símbolos terminales */
+terminal TEXT,
+         ERROR_START, ERROR_END, ERRORS_START, ERRORS_END,
+         LEXEMA_START, LEXEMA_END, TIPO_START, TIPO_END,
+         LINE_START, LINE_END, COLUMN_START, COLUMN_END,
+         DESCRIPCION_START, DESCRIPCION_END, numero;
+non terminal document, errors, element, error_tag, error_content,error_content_list;
+/* Producciones */
+start with document;
+
+document ::= errors;
+
+errors ::= ERRORS_START element ERRORS_END {: f.listaReportes(TablaRE);:};
+
+element ::= error_tag
+            | element error_tag;
+
+error_tag ::= ERROR_START error_content_list ERROR_END {: TReporte data = new TReporte(a1, e1, i1, o1, u1); TablaRE.add(data);  :};
+
+error_content_list ::= error_content
+                      |error_content error_content_list;
+
+error_content ::= LEXEMA_START TEXT:a LEXEMA_END {: a1 = a.toString();  :}
+                  |LINE_START numero:e  LINE_END  {: e1 = e.toString(); :}
+                  |COLUMN_START numero:i COLUMN_END  {: i1 = i.toString(); :}
+                  |TIPO_START TEXT:o TIPO_END  {: o1 = o.toString();  :}
+                  |DESCRIPCION_START TEXT:u DESCRIPCION_END  {: u1 = u.toString(); :};
+

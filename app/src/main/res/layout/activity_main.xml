@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    tools:context=".MainActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="408dp"
+        android:layout_height="657dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.996">
+
+        <EditText
+            android:id="@+id/editTextTextMultiLine"
+            android:layout_width="410dp"
+            android:layout_height="209dp"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.111" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="124dp"
+            android:layout_height="63dp"
+            android:text="Enviar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.834" />
+
+        <Button
+            android:id="@+id/button_tabla"
+            android:layout_width="195dp"
+            android:layout_height="41dp"
+            android:text="Tabla de Errores"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.924"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.98" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.405"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.972"
+            app:srcCompat="@drawable/errorimage" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/buttonPlay"
+        android:layout_width="82dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="80dp"
+        android:layout_height="22dp"
+        android:fontFamily="sans-serif"
+        android:text="JUGAR!"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.115" />
+
+    <ImageButton
+        android:id="@+id/buttonViewWorlds"
+        android:layout_width="82dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.019"
+        app:srcCompat="@android:drawable/ic_menu_mapmode" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="144dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="28dp"
+        android:fontFamily="sans-serif"
+        android:text="VER MUNDOS"
+        android:textColor="#FDFDFD"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.114" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="CREA TU PRIMER MUNDO"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.158" />
+
+
+
+</android.support.constraint.ConstraintLayout>
