@@ -1,0 +1,156 @@
+package Analizadores;
+import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+import com.malrod.boxworldserver.*;
+import Controladores.*;
+
+//------> Codigo para el parser,variables, metodos
+parser code
+{:
+    public String resultado="";
+    public static LinkedList<TError> TablaES = new LinkedList<TError>(); 
+    public static BoxWorldServer mandar = new BoxWorldServer();
+
+    
+
+    //Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {        
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
+        
+        System.out.println("!!!!!!! Error Sintactico, Panic Mode !!!!!!! ");
+        System.out.println("\t\tLexema: "+lexema);
+        System.out.println("\t\tFila: "+fila);
+        System.out.println("\t\tColumna: "+columna);
+
+        TError datos = new TError(lexema,fila,columna,"sintactico","Caracter no esperado");
+        TablaES.add(datos);
+        mandar.tablaErrores(lexema,fila,columna,"sintactico","Caracter no esperado");
+        mandar.noMistakes(true);
+     
+    }
+:}
+
+//------> Codigo para las acciones gramaticales
+action code
+{:
+:}
+
+/*--------------- 2da Area: Declaraciones -----------------------*/
+//------> declaracion de terminales 
+terminal mas,menos,por,div,para,parc, llavea, llaveb, cora, corb, dospuntos,cadena,coma, comilla, HEX_COLOR, NAME, ROWS, COLS, CONFIG, BOX_COLOR, BOX_ON_TARGET_COLOR, TARGET_COLOR, BRICK_COLOR, HALL_COLOR, UNDEFINED_COLOR, PLAYER_COLOR, BOARD, POSX, POSY, TYPE, BOXES, TARGETS, PLAYER, BRICK, HALL ;
+terminal numero, operacion, FLOOR, CEIL;
+
+//------> declaracion de no terminales
+non terminal JSON,OBJECT, MEMBERS, PAIR, ARRAY, ELEMENTS, VALUE, OPNUMERO, PCONFIG, OBJCONFIG, MCONFIG, OBJPLAYER, OBJFLOOR, OBJCEIL;
+
+//----> precedencia de menor a mayor  
+precedence left mas, menos;
+precedence left por, div;
+precedence left coma;
+precedence left dospuntos;
+
+start with JSON;
+
+/* Gramática */
+JSON ::=
+  OBJECT
+  | ARRAY;
+
+  OBJECT ::=
+  llavea MEMBERS llaveb;
+
+  ARRAY ::=
+
+  comilla BOARD comilla dospuntos cora ELEMENTS corb
+  | comilla BOXES comilla dospuntos cora ELEMENTS corb
+  | comilla TARGETS comilla dospuntos cora ELEMENTS corb;
+
+  MEMBERS ::=
+  PAIR
+  | PAIR coma MEMBERS
+  | PAIR coma
+  | OBJCONFIG llavea MCONFIG llaveb 
+  | OBJCONFIG llavea MCONFIG llaveb coma MEMBERS
+  | ARRAY
+  | ARRAY coma MEMBERS
+  | ARRAY coma
+  | OBJPLAYER llavea MEMBERS llaveb;
+
+  PAIR ::=
+       comilla NAME comilla dospuntos comilla cadena comilla  
+     | comilla ROWS comilla dospuntos OPNUMERO
+     | comilla COLS comilla dospuntos OPNUMERO 
+     | comilla POSX comilla dospuntos OPNUMERO
+     | comilla POSY comilla dospuntos OPNUMERO  
+     | comilla TYPE comilla dospuntos comilla BRICK comilla 
+     | comilla TYPE comilla dospuntos comilla HALL comilla ;
+
+ OPNUMERO ::= comilla operacion comilla 
+  | comilla numero comilla 
+  | numero 
+  | comilla FLOOR para OBJFLOOR parc comilla
+  | comilla FLOOR para OBJFLOOR parc por OPNUMERO comilla
+  | comilla FLOOR para OBJFLOOR parc div OPNUMERO comilla
+  | comilla FLOOR para OBJFLOOR parc mas OPNUMERO comilla
+  | comilla FLOOR para OBJFLOOR parc menos OPNUMERO comilla
+  | comilla CEIL para OBJCEIL parc comilla
+  | comilla CEIL para OBJCEIL parc por OPNUMERO comilla
+  | comilla CEIL para OBJCEIL parc div OPNUMERO comilla
+  | comilla CEIL para OBJCEIL parc mas OPNUMERO comilla
+  | comilla CEIL para OBJCEIL parc menos OPNUMERO comilla;
+
+
+  OBJFLOOR ::=
+  operacion 
+  | numero
+  | numero mas OBJFLOOR
+  | numero menos OBJFLOOR
+  | numero por OBJFLOOR
+  | numero div OBJFLOOR
+  | numero OBJFLOOR
+  | FLOOR para OBJFLOOR parc ;
+
+  OBJCEIL ::=
+  operacion
+  | numero
+  | numero mas OBJCEIL
+  | numero menos OBJCEIL
+  | numero por OBJCEIL
+  | numero div OBJCEIL
+  | numero OBJCEIL
+  | CEIL para OBJCEIL parc ;
+  
+
+  OBJCONFIG ::=
+  comilla CONFIG comilla dospuntos;
+
+  OBJPLAYER ::= comilla PLAYER comilla dospuntos;
+  
+  MCONFIG ::=
+  PCONFIG
+  | PCONFIG coma 
+  | PCONFIG coma MCONFIG;
+
+  PCONFIG ::=
+  comilla BOX_COLOR comilla dospuntos comilla HEX_COLOR comilla
+  | comilla BOX_ON_TARGET_COLOR comilla dospuntos comilla HEX_COLOR comilla
+  | comilla TARGET_COLOR comilla dospuntos comilla HEX_COLOR comilla
+  | comilla BRICK_COLOR comilla dospuntos comilla HEX_COLOR comilla
+  | comilla HALL_COLOR comilla dospuntos comilla HEX_COLOR comilla
+  | comilla UNDEFINED_COLOR comilla dospuntos comilla HEX_COLOR comilla
+  | comilla PLAYER_COLOR comilla dospuntos comilla HEX_COLOR comilla;
+
+  ELEMENTS ::= 
+  VALUE
+  | VALUE coma ELEMENTS;
+
+  VALUE ::=
+   OBJECT
+  | ARRAY;
+
+
+/*--------------- 3ra Area: Reglas Semanticas -----------------------*/
+
