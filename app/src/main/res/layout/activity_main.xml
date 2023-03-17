@@ -13,10 +13,10 @@
         android:layout_height="657dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.996">
+        app:layout_constraintVertical_bias="1.0">
 
         <EditText
             android:id="@+id/editTextTextMultiLine"
@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintVertical_bias="0.133" />
 
         <Button
             android:id="@+id/button"
@@ -68,6 +68,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.972"
             app:srcCompat="@drawable/errorimage" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="403dp"
+            android:layout_height="174dp"
+            android:text="."
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.633" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import com.elmalrod.boxworld.AnalizadoresXML.LexerXML
+import com.elmalrod.boxworld.AnalizadoresXML.Lexer
 import com.elmalrod.boxworld.AnalizadoresXML.TReporte
 import com.elmalrod.boxworld.AnalizadoresXML.parser
 import com.elmalrod.boxworld.Controladores.Tabla
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val buttonLoadFile = findViewById<Button>(R.id.button_tabla)
         buttonLoadFile.setOnClickListener {
             //analizar errores
-            val lexer = LexerXML(FileReader("/data/user/0/com.elmalrod.boxworld/files/errores.xml"))
+            val lexer = Lexer(FileReader("/data/user/0/com.elmalrod.boxworld/files/errores.xml"))
             val sintactico = parser(lexer)
             sintactico.parse()
             var TablaRE: List<TReporte> = ArrayList()

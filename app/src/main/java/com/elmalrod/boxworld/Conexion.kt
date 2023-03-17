@@ -20,7 +20,7 @@ class Conexion(private val context: Context) {
 
         override fun doInBackground(vararg params: String): Boolean {
             try {
-                val socket = Socket("192.168.0.35", 8080)
+                val socket = Socket("192.168.0.31", 8080)
                 val writer = PrintWriter(socket.getOutputStream(), true)
 
                 for (mensaje in params) {
