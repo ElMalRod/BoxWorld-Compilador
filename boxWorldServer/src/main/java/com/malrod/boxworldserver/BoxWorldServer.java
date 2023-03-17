@@ -173,7 +173,10 @@ public class BoxWorldServer {
         sjf.agregarLog("Se encontro errores");
         lista.imprimir();
     }
-    
+    public static void noMistakesSintactico(boolean c) {
+        aux = c;
+        sjf.agregarLog("Se encontro errores");
+    }
     public static void  peticionMundos(boolean c)
     {
         System.out.println("Mando peticion mundos");
@@ -199,6 +202,16 @@ public class BoxWorldServer {
         
         lista.ver();
 
+    }
+    public boolean validarNombre(String e)
+    {
+        for (Mundos elemento: wordlsXml) {
+            if (e.equals(elemento.name)) {
+                return true;
+            }
+        }
+        return false;
+        
     }
     public static void buscarMundo()
     {

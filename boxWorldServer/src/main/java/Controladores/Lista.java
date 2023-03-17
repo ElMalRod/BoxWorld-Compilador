@@ -48,17 +48,7 @@ public class Lista {
         TError actual = primero;
         int cont = 0;
         StringBuilder sb = new StringBuilder();
-        if (numElem == 1) {
-            sb.append("<error>");
-            sb.append("<lexema>" + actual.getLexema() + "</lexema>");
-            sb.append("<line>" + actual.getLinea() + "</line>");
-            sb.append("<column>" + actual.getColumna() + "</column>");
-            sb.append("<type>" + actual.getTipo() + "</type>");
-            sb.append("<description>" + actual.getDescripcion() + "</description>");
-            sb.append("</error>");
-            String xx = sb.toString();
-            System.out.println("era el primero " + xx);
-        }
+        
         for (int i = 0; i < numElem; i++) {
 
             sb.append("<error>");

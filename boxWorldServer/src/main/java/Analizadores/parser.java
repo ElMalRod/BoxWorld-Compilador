@@ -359,7 +359,7 @@ public class parser extends java_cup.runtime.lr_parser {
         TError datos = new TError(lexema,fila,columna,"sintactico","Caracter no esperado");
         TablaES.add(datos);
         mandar.tablaErrores(lexema,fila,columna,"sintactico","Caracter no esperado");
-        mandar.noMistakes(true);
+        mandar.noMistakesSintactico(true);
      
     }
     //guardar numero de peraciones
@@ -387,9 +387,16 @@ public class parser extends java_cup.runtime.lr_parser {
          mandar.tablaErrores(e,1,1,"semantico","Campo name duplicado");
          mandar.noMistakes(true);
 
-       }else { nameP = true;
+       }else { 
+         if(mandar.validarNombre(e)==false){
+         nameP = true;
          System.out.println("Guardando nombre del mundo:  " +e);
          mandar.saveName(e);
+         } else{
+         System.out.println("Mundo duplicado");
+         mandar.tablaErrores(e,1,1,"semantico","Mundo duplicado");
+         mandar.noMistakes(true); 
+          }
        }
     }
     //ROWS
