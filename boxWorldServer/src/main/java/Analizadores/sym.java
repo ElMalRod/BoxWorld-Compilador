@@ -10,6 +10,7 @@ public class sym {
   /* terminals */
   public static final int comilla = 15;
   public static final int BRICK_COLOR = 24;
+  public static final int WORLDS = 42;
   public static final int TARGETS = 33;
   public static final int coma = 14;
   public static final int BOX_COLOR = 21;
@@ -35,6 +36,7 @@ public class sym {
   public static final int error = 1;
   public static final int corb = 11;
   public static final int cora = 10;
+  public static final int WORLD = 41;
   public static final int por = 4;
   public static final int dospuntos = 12;
   public static final int NAME = 17;
@@ -43,6 +45,7 @@ public class sym {
   public static final int COLS = 19;
   public static final int operacion = 38;
   public static final int BOXES = 32;
+  public static final int ALL = 43;
   public static final int CEIL = 40;
   public static final int div = 5;
   public static final int UNDEFINED_COLOR = 26;
@@ -90,7 +93,10 @@ public class sym {
   "numero",
   "operacion",
   "FLOOR",
-  "CEIL"
+  "CEIL",
+  "WORLD",
+  "WORLDS",
+  "ALL"
   };
 }
 

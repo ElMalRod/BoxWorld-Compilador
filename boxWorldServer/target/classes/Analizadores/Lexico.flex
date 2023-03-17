@@ -55,6 +55,9 @@ BRICK = "BRICK"
 HALL = "HALL"
 FLOOR = "FLOOR"
 CEIL = "CEIL"
+WORLD = "world"
+WORLDS = "worlds"
+ALL = "all"
 
 %%
 /*------------  3raa Area: Reglas Lexicas ---------*/
@@ -62,49 +65,52 @@ CEIL = "CEIL"
 //-----> Simbolos
 //------> Espacios
 <YYINITIAL>{WHITESPACE} { }
-<YYINITIAL> "+"         { System.out.println("Encontro "+yytext()+" mas" ); return new Symbol(sym.mas, yycolumn, yyline, yytext()); }
-<YYINITIAL> "-"         { System.out.println("Encontro "+yytext()+" menos" ); return new Symbol(sym.menos, yycolumn, yyline, yytext()); }
-<YYINITIAL> "*"         { System.out.println("Encontro "+yytext()+" por" ); return new Symbol(sym.por, yycolumn, yyline, yytext()); }
-<YYINITIAL> "/"         { System.out.println("Encontro "+yytext()+" div" ); return new Symbol(sym.div, yycolumn, yyline, yytext()); }
-<YYINITIAL> "("         { System.out.println("Encontro "+yytext()+" para" ); return new Symbol(sym.para, yycolumn, yyline, yytext()); }
-<YYINITIAL> ")"         { System.out.println("Encontro "+yytext()+" parc" ); return new Symbol(sym.parc, yycolumn, yyline, yytext()); }
-<YYINITIAL> ":"         { System.out.println("Encontro "+yytext()+" dospuntos" ); return new Symbol(sym.dospuntos, yycolumn, yyline, yytext()); }
-<YYINITIAL> "{"         { System.out.println("Encontro "+yytext()+" llavea" ); return new Symbol(sym.llavea, yycolumn, yyline, yytext()); }
-<YYINITIAL> "}"         { System.out.println("Encontro "+yytext()+" llaveb" ); return new Symbol(sym.llaveb, yycolumn, yyline, yytext()); }
-<YYINITIAL> "["         { System.out.println("Encontro "+yytext()+" cora" ); return new Symbol(sym.cora, yycolumn, yyline, yytext()); }
-<YYINITIAL> "]"         { System.out.println("Encontro "+yytext()+" corb" ); return new Symbol(sym.corb, yycolumn, yyline, yytext()); }
-<YYINITIAL> ","         { System.out.println("Encontro "+yytext()+" coma" ); return new Symbol(sym.coma, yycolumn, yyline, yytext()); }
+<YYINITIAL> "+"         { return new Symbol(sym.mas, yycolumn, yyline, yytext()); }
+<YYINITIAL> "-"         { return new Symbol(sym.menos, yycolumn, yyline, yytext()); }
+<YYINITIAL> "*"         { return new Symbol(sym.por, yycolumn, yyline, yytext()); }
+<YYINITIAL> "/"         { return new Symbol(sym.div, yycolumn, yyline, yytext()); }
+<YYINITIAL> "("         { return new Symbol(sym.para, yycolumn, yyline, yytext()); }
+<YYINITIAL> ")"         { return new Symbol(sym.parc, yycolumn, yyline, yytext()); }
+<YYINITIAL> ":"         { return new Symbol(sym.dospuntos, yycolumn, yyline, yytext()); }
+<YYINITIAL> "{"         { return new Symbol(sym.llavea, yycolumn, yyline, yytext()); }
+<YYINITIAL> "}"         { return new Symbol(sym.llaveb, yycolumn, yyline, yytext()); }
+<YYINITIAL> "["         { return new Symbol(sym.cora, yycolumn, yyline, yytext()); }
+<YYINITIAL> "]"         { return new Symbol(sym.corb, yycolumn, yyline, yytext()); }
+<YYINITIAL> ","         { return new Symbol(sym.coma, yycolumn, yyline, yytext()); }
 
 
 [ \t\r\n\f]             {/* Espacios en blanco, se ignoran */}
-{NAME}                { System.out.println("Encontro "+yytext()); return new Symbol(sym.NAME, yycolumn, yyline, yytext()); }
-{ROWS}                { System.out.println("Encontro "+yytext());  return new Symbol(sym.ROWS,yycolumn, yyline, yytext()); }
-{COLS}                { System.out.println("Encontro "+yytext());  return new Symbol(sym.COLS,yycolumn, yyline, yytext()); }
-{CONFIG}              { System.out.println("Encontro "+yytext());  return new Symbol(sym.CONFIG, yycolumn, yyline, yytext()); }
-{HEX_COLOR}           {System.out.println("Encontro "+yytext());  return new Symbol(sym.HEX_COLOR,yycolumn, yyline, yytext()); }
-{BOX_COLOR}           { System.out.println("Encontro "+yytext());  return new Symbol(sym.BOX_COLOR, yycolumn, yyline, yytext()); }
-{BOX_ON_TARGET_COLOR} { System.out.println("Encontro "+yytext());  return new Symbol(sym.BOX_ON_TARGET_COLOR,yycolumn, yyline, yytext()); }
-{TARGET_COLOR}        { System.out.println("Encontro "+yytext());  return new Symbol(sym.TARGET_COLOR, yycolumn, yyline, yytext()); }
-{BRICK_COLOR}         { System.out.println("Encontro "+yytext());  return new Symbol(sym.BRICK_COLOR, yycolumn, yyline, yytext()); }
-{HALL_COLOR}          { System.out.println("Encontro "+yytext());  return new Symbol(sym.HALL_COLOR, yycolumn, yyline, yytext()); }
-{UNDEFINED_COLOR}     { System.out.println("Encontro "+yytext());  return new Symbol(sym.UNDEFINED_COLOR, yycolumn, yyline, yytext()); }
-{PLAYER_COLOR}        { System.out.println("Encontro "+yytext());  return new Symbol(sym.PLAYER_COLOR, yycolumn, yyline, yytext()); }
-{BOARD}               { System.out.println("Encontro "+yytext());  return new Symbol(sym.BOARD, yycolumn, yyline, yytext()); }
-{POSX}                { System.out.println("Encontro "+yytext());  return new Symbol(sym.POSX,yycolumn, yyline, yytext()); }
-{POSY}                { System.out.println("Encontro "+yytext());  return new Symbol(sym.POSY, yycolumn, yyline, yytext()); }
-{TYPE}                { System.out.println("Encontro "+yytext());  return new Symbol(sym.TYPE,yycolumn, yyline, yytext()); }
-{BOXES}               { System.out.println("Encontro "+yytext());  return new Symbol(sym.BOXES, yycolumn, yyline, yytext()); }
-{TARGETS}             { System.out.println("Encontro "+yytext());  return new Symbol(sym.TARGETS, yycolumn, yyline, yytext()); }
-{PLAYER}              { System.out.println("Encontro "+yytext());  return new Symbol(sym.PLAYER, yycolumn, yyline, yytext()); }
-{BRICK}               { System.out.println("Encontro "+yytext());  return new Symbol(sym.BRICK, yycolumn, yyline, yytext()); }
-{HALL}                { System.out.println("Encontro "+yytext());  return new Symbol(sym.HALL, yycolumn, yyline, yytext()); }
-{FLOOR}               { System.out.println("Encontro "+yytext());  return new Symbol(sym.FLOOR, yycolumn, yyline, yytext()); }
-{CEIL}                { System.out.println("Encontro "+yytext());  return new Symbol(sym.CEIL, yycolumn, yyline, yytext()); }
+{NAME}                {  return new Symbol(sym.NAME, yycolumn, yyline, yytext()); }
+{ROWS}                {  return new Symbol(sym.ROWS,yycolumn, yyline, yytext()); }
+{COLS}                {  return new Symbol(sym.COLS,yycolumn, yyline, yytext()); }
+{CONFIG}              {  return new Symbol(sym.CONFIG, yycolumn, yyline, yytext()); }
+{HEX_COLOR}           {  return new Symbol(sym.HEX_COLOR,yycolumn, yyline, yytext()); }
+{BOX_COLOR}           {  return new Symbol(sym.BOX_COLOR, yycolumn, yyline, yytext()); }
+{BOX_ON_TARGET_COLOR} {  return new Symbol(sym.BOX_ON_TARGET_COLOR,yycolumn, yyline, yytext()); }
+{TARGET_COLOR}        {  return new Symbol(sym.TARGET_COLOR, yycolumn, yyline, yytext()); }
+{BRICK_COLOR}         {  return new Symbol(sym.BRICK_COLOR, yycolumn, yyline, yytext()); }
+{HALL_COLOR}          {  return new Symbol(sym.HALL_COLOR, yycolumn, yyline, yytext()); }
+{UNDEFINED_COLOR}     {  return new Symbol(sym.UNDEFINED_COLOR, yycolumn, yyline, yytext()); }
+{PLAYER_COLOR}        {  return new Symbol(sym.PLAYER_COLOR, yycolumn, yyline, yytext()); }
+{BOARD}               {  return new Symbol(sym.BOARD, yycolumn, yyline, yytext()); }
+{POSX}                {  return new Symbol(sym.POSX,yycolumn, yyline, yytext()); }
+{POSY}                {  return new Symbol(sym.POSY, yycolumn, yyline, yytext()); }
+{TYPE}                {  return new Symbol(sym.TYPE,yycolumn, yyline, yytext()); }
+{BOXES}               {  return new Symbol(sym.BOXES, yycolumn, yyline, yytext()); }
+{TARGETS}             {  return new Symbol(sym.TARGETS, yycolumn, yyline, yytext()); }
+{PLAYER}              {  return new Symbol(sym.PLAYER, yycolumn, yyline, yytext()); }
+{BRICK}               {  return new Symbol(sym.BRICK, yycolumn, yyline, yytext()); }
+{HALL}                {  return new Symbol(sym.HALL, yycolumn, yyline, yytext()); }
+{FLOOR}               {  return new Symbol(sym.FLOOR, yycolumn, yyline, yytext()); }
+{CEIL}                {  return new Symbol(sym.CEIL, yycolumn, yyline, yytext()); }
+{WORLD}               { return new Symbol(sym.WORLD, yycolumn, yyline, yytext()); }
+{WORLDS}              { return new Symbol(sym.WORLDS, yycolumn, yyline, yytext()); }
+{ALL}                 { return new Symbol(sym.ALL, yycolumn, yyline, yytext()); }
 //-------> Simbolos ER
-{cadena}    { System.out.println("Reconocio "+yytext()+" cadena"); return new Symbol(sym.cadena, yycolumn, yyline, yytext()); }
-{comilla}   {System.out.println("Encontro "+yytext()); return new Symbol(sym.comilla,yycolumn, yyline, yytext()); }
-{numero}    { System.out.println("Reconocio "+yytext()+" numero"); return new Symbol(sym.numero, yycolumn, yyline, yytext()); }
-{operacion} { System.out.println("Reconocio "+yytext()+" operacion"); return new Symbol(sym.operacion, yycolumn, yyline, yytext()); }
+{cadena}    { return new Symbol(sym.cadena, yycolumn, yyline, yytext()); }
+{comilla}   { return new Symbol(sym.comilla,yycolumn, yyline, yytext()); }
+{numero}    { return new Symbol(sym.numero, yycolumn, yyline, yytext()); }
+{operacion} { return new Symbol(sym.operacion, yycolumn, yyline, yytext()); }
 
 
 //------> Errores Lexicos

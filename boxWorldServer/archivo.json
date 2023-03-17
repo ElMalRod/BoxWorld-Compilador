@@ -1,0 +1,141 @@
+{
+    "name": "tongo",
+    "rows": "5",
+    "cols": "10",
+    "config": {
+        "box_color": "#ffff00",
+        "box_on_target_color": "#fe0002",
+        "target_color": "#d6fe0a",
+        "brick_color": "#bdbebf",
+        "hall_color": "#0001ff",
+        "undefined_color": "#303030",
+        "player_color": "#ff00f7"
+    },
+    "board": [
+        {
+            "posX": 0,
+            "posY": "2 - 2",
+            "type": "BRICK"
+        },
+        {
+            "posX": 0,
+            "posY": "3 / 3",
+            "type": "BRICK"
+        },
+        {
+            "posX": 0,
+            "posY": "2 * 1",
+            "type": "BRICK"
+        },
+        {
+            "posX": 0,
+            "posY": "9 / 3 * 1",
+            "type": "BRICK"
+        },
+        {
+            "posX": 0,
+            "posY": "10 / 2 - 1",
+            "type": "BRICK"
+        },
+        {
+            "posX": "2 / 2",
+            "posY": 0,
+            "type": "BRICK"
+        },
+        {
+            "posX": "10 - 3 * 3",
+            "posY": "3 * 2 - 5",
+            "type": "HALL"
+        },
+        {
+            "posX": 1,
+            "posY": "2 * 1",
+            "type": "HALL"
+        },
+        {
+            "posX": 1,
+            "posY": "12 / 4 * 1",
+            "type": "HALL"
+        },
+        {
+            "posX": "17 - 4 * 4",
+            "posY": "10 / 2 - 1",
+            "type": "BRICK"
+        },
+        {
+            "posX": "2 / 2 + 1",
+            "posY": 0,
+            "type": "BRICK"
+        },
+        {
+            "posX": "10 - 2 * 4",
+            "posY": "3 * 2 - 5",
+            "type": "HALL"
+        },
+        {
+            "posX": 2,
+            "posY": "2 * 1",
+            "type": "HALL"
+        },
+        {
+            "posX": 2,
+            "posY": "12 / 4 * 1",
+            "type": "HALL"
+        },
+        {
+            "posX": "20 - 6 * 3",
+            "posY": "10 / 2 - 1",
+            "type": "BRICK"
+        },
+        {
+            "posX": 3,
+            "posY": 0,
+            "type": "BRICK"
+        },
+        {
+            "POSIX": 3,
+            "posY": "5 / 5 * 6 - 5",
+            "type": "BRICK"
+        },
+        {
+            "posX": 3,
+            "posY": "2 * 1",
+            "type": "BRICK"
+        },
+        {
+            "posX": "9 / 3",
+            "posY": "9 / 3 * 1",
+            "type": "BRICK"
+        },
+        {
+            "posX": 3,
+            "posY": "10 / 2 - 1",
+            "type": "BRICK"
+        }
+    ],
+    "boxes": [
+        {
+            "posX": 2,
+            "posY": 1
+        },
+        {
+            "posX": 2,
+            "posY": "1 + 1"
+        }
+    ],
+    "targets": [
+        {
+            "posX": "4 / 2 + 1",
+            "posY": 1
+        },
+        {
+            "posX": "4 / 2 + 1",
+            "posY": "1 * 1 + 1"
+        }
+    ],
+    "player": {
+        "posX": 1,
+        "posY": "5 + 2 / 3 + 4"
+    }
+}
+

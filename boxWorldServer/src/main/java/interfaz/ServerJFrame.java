@@ -4,6 +4,9 @@
  */
 package interfaz;
 
+import Analizadores.TError;
+import Controladores.Lista;
+
 
 
 /**
@@ -30,6 +33,20 @@ public class ServerJFrame extends javax.swing.JFrame {
     {
         jTextArea2.append("");
         jTextArea2.append(pet);
+    }
+    public void ver(Lista lista) {
+        System.out.println("----------------------VIENDO log--------------------------------");
+        TError actual = lista.primero;
+        while (actual.getSiguiente() != null) {
+            agregarXml("<error>"+ "\n");
+            agregarXml("<lexema>" + actual.getLexema() + "</lexema>"+ "\n");
+            agregarXml("<line>" + actual.getLinea() + "</line>"+ "\n");
+            agregarXml("<type>" + actual.getTipo() + "</type>"+ "\n");
+            agregarXml("<description>" + actual.getDescripcion() + "</description>"+ "\n");
+            agregarXml("</error>"+ "\n");
+            actual = actual.getSiguiente();
+        }
+
     }
    
     /**

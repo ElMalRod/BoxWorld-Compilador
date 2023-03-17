@@ -3,6 +3,12 @@ import java_cup.runtime.Symbol;
 import java.util.LinkedList;
 import com.malrod.boxworldserver.*;
 import Controladores.*;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 
 //------> Codigo para el parser,variables, metodos
 parser code
@@ -10,6 +16,23 @@ parser code
     public String resultado="";
     public static LinkedList<TError> TablaES = new LinkedList<TError>(); 
     public static BoxWorldServer mandar = new BoxWorldServer();
+    //declaracion de estructuras para evitar repeticiones
+    String names, rowss, colss, configs, boards, boxess, targets, players;
+    boolean nameP = false;
+    boolean rowsP = false;
+    boolean colsP = false;
+    boolean configP = false;
+    boolean boardP = false;
+    boolean boxesP = false;
+    boolean targetP = false;
+    boolean playerP = false;
+    boolean box_colorp = false;
+    boolean box_onp = false;
+    boolean brick_colorp = false;
+    boolean hall_colorp = false;
+    boolean target_colorp = false;
+    boolean undefined_colorp = false;
+    boolean player_colorp = false;
 
     
 
@@ -31,6 +54,178 @@ parser code
         mandar.noMistakes(true);
      
     }
+    //guardar numero de peraciones
+    public void recover_operaciones(String op)  throws ScriptException
+    {
+      System.out.println("OPERACIONNN " + op);
+       Context rhino = Context.enter();
+        rhino.setOptimizationLevel(-1);
+        Scriptable scope = rhino.initStandardObjects();
+        String expression = op;
+        try {
+            Object result = rhino.evaluateString(scope, expression, "math", 1, null);
+            System.out.println("RESULTADO:  " + result); // Output: 18
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Context.exit();
+        }
+    }
+    //NAME
+    public void recover_name(String e)
+    { 
+       if (nameP== true){
+         System.out.println("Error campo name ya existe");
+         mandar.tablaErrores(e,1,1,"semantico","Campo name duplicado");
+         mandar.noMistakes(true);
+
+       }else { nameP = true;
+         System.out.println("Guardando nombre del mundo:  " +e);
+         mandar.saveName(e);
+       }
+    }
+    //ROWS
+    public void recover_row(String e)
+    { 
+       if (rowsP== true){
+         System.out.println("Error campo row ya existe");
+         mandar.tablaErrores(e,1,1,"semantico","Campo row duplicado");
+         mandar.noMistakes(true);
+
+       }else { rowsP = true;
+         System.out.println("Guardando row del mundo:  " +e);}
+    }
+    //COLS
+    public void recover_cols(String e)
+    { 
+       if (colsP== true){
+         System.out.println("Error campo cols ya existe");
+         mandar.tablaErrores(e,1,1,"semantico","Campo cols duplicado");
+         mandar.noMistakes(true);
+
+       }else { colsP = true;
+         System.out.println("Guardando cols del mundo:  " +e);}
+    }
+    //CONFIG
+    public void recover_config()
+    { 
+       if (configP== true){
+         System.out.println("Error campo config ya existe");
+         mandar.tablaErrores("config",1,1,"semantico","Campo config duplicado");
+         mandar.noMistakes(true);
+
+       }else { configP = true;
+         System.out.println("Guardando config del mundo:  " );}
+    }
+
+    //BOARD
+    public void recover_board(String e)
+    { 
+       if (boardP== true){
+         System.out.println("Error campo board ya existe");
+         mandar.tablaErrores(e,1,1,"semantico","Campo board duplicado");
+         mandar.noMistakes(true);
+
+       }else { boardP = true;
+         System.out.println("Guardando board del mundo:  " +e);}
+    }
+    //BOXES
+    public void recover_boxes(String e)
+    { 
+       if (boxesP== true){
+         System.out.println("Error campo boxes ya existe");
+         mandar.tablaErrores(e,1,1,"semantico","Campo boxes duplicado");
+         mandar.noMistakes(true);
+
+       }else { boxesP = true;
+         System.out.println("Guardando boxes del mundo:  " +e);}
+    }   
+    //TARGET
+    public void recover_target(String e)
+    { 
+       if (targetP== true){
+         System.out.println("Error campo target ya existe");
+         mandar.tablaErrores(e,1,1,"semantico","Campo target duplicado");
+         mandar.noMistakes(true);
+
+       }else { targetP = true;
+         System.out.println("Guardando target del mundo:  " +e);}
+    }
+    //PLAYER
+    public void recover_player()
+    { 
+       if (playerP== true){
+         System.out.println("Error campo player ya existe");
+         mandar.tablaErrores("player",1,1,"semantico","Campo player duplicado");
+         mandar.noMistakes(true);
+
+       }else { playerP = true;
+         System.out.println("Guardando player del mundo");}
+    }
+   //TODO LOS ELEMENTOS DE CONFIG
+    public void recover_box_color()
+    { 
+       if (box_colorp == true){
+         System.out.println("Error campo box_color ya existe");
+         mandar.tablaErrores("boxcolor",1,1,"semantico","Campo box_color duplicado");
+         mandar.noMistakes(true);
+       }else { box_colorp = true; System.out.println("Guardando box_color del mundo");}
+    }
+    public void recover_box_on()
+    { 
+       if (box_onp == true){
+         System.out.println("Error campo box_on_target_color ya existe");
+         mandar.tablaErrores("boxontargetcolor",1,1,"semantico","Campo box_on_target_color duplicado");
+         mandar.noMistakes(true);
+       }else { box_onp = true; System.out.println("Guardando box_on_target_color del mundo");}
+    }
+    public void recover_brick_color()
+    { 
+       if (brick_colorp == true){
+         System.out.println("Error campo brick_color ya existe");
+         mandar.tablaErrores("brickcolor",1,1,"semantico","Campo brick color duplicado");
+         mandar.noMistakes(true);
+       }else { brick_colorp = true; System.out.println("Guardando brick_color del mundo");}
+    }
+    public void recover_hall_color()
+    { 
+       if (hall_colorp == true){
+         System.out.println("Error campo hall_color ya existe");
+         mandar.tablaErrores("hallcolor",1,1,"semantico","Campo hall color duplicado");
+         mandar.noMistakes(true);
+       }else { hall_colorp = true; System.out.println("Guardando hall_color del mundo");}
+    }
+    public void recover_target_color()
+    { 
+       if (target_colorp == true){
+         System.out.println("Error campo target color ya existe");
+         mandar.tablaErrores("targetcolor",1,1,"semantico","Campo hall color duplicado");
+       }else { target_colorp = true; System.out.println("Guardando target_color del mundo");}
+    }
+    public void recover_undefined_color()
+    { 
+       if (undefined_colorp == true){
+         System.out.println("Error campo undefined_color ya existe");
+         mandar.tablaErrores("undefinedcolor",1,1,"semantico","Campo undefined color duplicado");
+         mandar.noMistakes(true);
+       }else { undefined_colorp = true; System.out.println("Guardando undefined_color del mundo");}
+    }
+    public void recover_player_color()
+    { 
+       if (player_colorp == true){
+         System.out.println("Error campo player_color ya existe");
+         mandar.tablaErrores("playercolor",1,1,"semantico","Campo player color duplicado");
+         mandar.noMistakes(true);
+       }else { player_colorp = true; System.out.println("Guardando player_color del mundo");}
+    }
+    public void recover_mundos(){
+        mandar.peticionMundos(true);
+    }
+    public void recover_one_world(String e){
+        mandar.peticionMundo(e);
+    }
+
+
 :}
 
 //------> Codigo para las acciones gramaticales
@@ -41,10 +236,10 @@ action code
 /*--------------- 2da Area: Declaraciones -----------------------*/
 //------> declaracion de terminales 
 terminal mas,menos,por,div,para,parc, llavea, llaveb, cora, corb, dospuntos,cadena,coma, comilla, HEX_COLOR, NAME, ROWS, COLS, CONFIG, BOX_COLOR, BOX_ON_TARGET_COLOR, TARGET_COLOR, BRICK_COLOR, HALL_COLOR, UNDEFINED_COLOR, PLAYER_COLOR, BOARD, POSX, POSY, TYPE, BOXES, TARGETS, PLAYER, BRICK, HALL ;
-terminal numero, operacion, FLOOR, CEIL;
+terminal numero, operacion, FLOOR, CEIL, WORLD, WORLDS, ALL;
 
 //------> declaracion de no terminales
-non terminal JSON,OBJECT, MEMBERS, PAIR, ARRAY, ELEMENTS, VALUE, OPNUMERO, PCONFIG, OBJCONFIG, MCONFIG, OBJPLAYER, OBJFLOOR, OBJCEIL;
+non terminal JSON,OBJECT, MEMBERS, PAIR, ARRAY, ELEMENTS, VALUE, OPNUMERO, PCONFIG, OBJCONFIG, MCONFIG, OBJPLAYER, OBJFLOOR, OBJCEIL, LEVELS, PETICION;
 
 //----> precedencia de menor a mayor  
 precedence left mas, menos;
@@ -57,38 +252,45 @@ start with JSON;
 /* Gramática */
 JSON ::=
   OBJECT
-  | ARRAY;
+  | ARRAY
+  | LEVELS;
+
+LEVELS ::=
+   llavea PETICION llaveb;
+
+PETICION ::=
+    comilla WORLDS comilla dospuntos comilla ALL comilla {:System.out.println("ENCONTRO WORLDS ALL"); recover_mundos(); :}
+   | comilla WORLD comilla dospuntos comilla cadena:e comilla {:System.out.println("ENCONTRO WORLD "+e); recover_one_world(e.toString()); :}; 
 
   OBJECT ::=
   llavea MEMBERS llaveb;
 
   ARRAY ::=
-
-  comilla BOARD comilla dospuntos cora ELEMENTS corb
-  | comilla BOXES comilla dospuntos cora ELEMENTS corb
-  | comilla TARGETS comilla dospuntos cora ELEMENTS corb;
+  comilla BOARD:e comilla dospuntos cora ELEMENTS corb {: recover_board(e.toString()); :}
+  | comilla BOXES:e comilla dospuntos cora ELEMENTS corb {: recover_boxes(e.toString()); :}
+  | comilla TARGETS:e comilla dospuntos cora ELEMENTS corb {: recover_target(e.toString()); :} ;
 
   MEMBERS ::=
   PAIR
   | PAIR coma MEMBERS
   | PAIR coma
-  | OBJCONFIG llavea MCONFIG llaveb 
-  | OBJCONFIG llavea MCONFIG llaveb coma MEMBERS
+  | OBJCONFIG llavea MCONFIG llaveb {: recover_config(); :}
+  | OBJCONFIG llavea MCONFIG llaveb coma MEMBERS {:  recover_config(); :}
   | ARRAY
   | ARRAY coma MEMBERS
   | ARRAY coma
-  | OBJPLAYER llavea MEMBERS llaveb;
+  | OBJPLAYER llavea MEMBERS llaveb {: recover_player(); :}; 
 
   PAIR ::=
-       comilla NAME comilla dospuntos comilla cadena comilla  
-     | comilla ROWS comilla dospuntos OPNUMERO
-     | comilla COLS comilla dospuntos OPNUMERO 
+       comilla NAME comilla dospuntos comilla cadena:e comilla  {: recover_name(e.toString()); :}
+     | comilla ROWS:e comilla dospuntos OPNUMERO {: recover_row(e.toString()); :}
+     | comilla COLS:e comilla dospuntos OPNUMERO {: recover_cols(e.toString()); :}
      | comilla POSX comilla dospuntos OPNUMERO
      | comilla POSY comilla dospuntos OPNUMERO  
      | comilla TYPE comilla dospuntos comilla BRICK comilla 
      | comilla TYPE comilla dospuntos comilla HALL comilla ;
 
- OPNUMERO ::= comilla operacion comilla 
+ OPNUMERO ::= comilla operacion:e comilla {: recover_operaciones(e.toString()); :}
   | comilla numero comilla 
   | numero 
   | comilla FLOOR para OBJFLOOR parc comilla
@@ -104,7 +306,7 @@ JSON ::=
 
 
   OBJFLOOR ::=
-  operacion 
+  operacion:e {: recover_operaciones(e.toString()); :}
   | numero
   | numero mas OBJFLOOR
   | numero menos OBJFLOOR
@@ -114,7 +316,7 @@ JSON ::=
   | FLOOR para OBJFLOOR parc ;
 
   OBJCEIL ::=
-  operacion
+  operacion:e {: recover_operaciones(e.toString()); :}
   | numero
   | numero mas OBJCEIL
   | numero menos OBJCEIL
@@ -135,13 +337,13 @@ JSON ::=
   | PCONFIG coma MCONFIG;
 
   PCONFIG ::=
-  comilla BOX_COLOR comilla dospuntos comilla HEX_COLOR comilla
-  | comilla BOX_ON_TARGET_COLOR comilla dospuntos comilla HEX_COLOR comilla
-  | comilla TARGET_COLOR comilla dospuntos comilla HEX_COLOR comilla
-  | comilla BRICK_COLOR comilla dospuntos comilla HEX_COLOR comilla
-  | comilla HALL_COLOR comilla dospuntos comilla HEX_COLOR comilla
-  | comilla UNDEFINED_COLOR comilla dospuntos comilla HEX_COLOR comilla
-  | comilla PLAYER_COLOR comilla dospuntos comilla HEX_COLOR comilla;
+  comilla BOX_COLOR comilla dospuntos comilla HEX_COLOR comilla {: recover_box_color(); :}
+  | comilla BOX_ON_TARGET_COLOR comilla dospuntos comilla HEX_COLOR comilla {: recover_box_on(); :}
+  | comilla TARGET_COLOR comilla dospuntos comilla HEX_COLOR comilla {: recover_target_color(); :}
+  | comilla BRICK_COLOR comilla dospuntos comilla HEX_COLOR comilla {: recover_brick_color(); :}
+  | comilla HALL_COLOR comilla dospuntos comilla HEX_COLOR comilla {: recover_hall_color(); :}
+  | comilla UNDEFINED_COLOR comilla dospuntos comilla HEX_COLOR comilla {: recover_undefined_color(); :}
+  | comilla PLAYER_COLOR comilla dospuntos comilla HEX_COLOR comilla {: recover_player_color(); :};
 
   ELEMENTS ::= 
   VALUE
