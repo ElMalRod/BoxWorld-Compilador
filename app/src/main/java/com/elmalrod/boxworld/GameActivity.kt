@@ -29,15 +29,15 @@ class GameActivity: AppCompatActivity() {
 
     private val READ_REQUEST_CODE: Int = 42
 
-    private lateinit var surfaceView: SurfaceView
-    private lateinit var surfaceHolder: SurfaceHolder
+   // private lateinit var surfaceView: SurfaceView
+    //private lateinit var surfaceHolder: SurfaceHolder
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gamelayout)
 
-        surfaceView = findViewById(R.id.surfaceView)
-        surfaceHolder = surfaceView.holder
+        //surfaceView = findViewById(R.id.surfaceView)
+      //  surfaceHolder = surfaceView.holder
 
         val playButton = findViewById<Button>(R.id.buttoncompilegame)
         playButton.setOnClickListener {
@@ -49,7 +49,7 @@ class GameActivity: AppCompatActivity() {
 
         }
     }
-
+/*
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
 
@@ -184,6 +184,8 @@ fun drawBoxWorld(canvas: Canvas, worldData: String) {
         val playerRect = Rect(left, top, right, bottom)
         canvas.drawRect(playerRect, Paint().apply { color = playerColor })
     }
+    */
+
 }
 
 // override fun onPostResume() {

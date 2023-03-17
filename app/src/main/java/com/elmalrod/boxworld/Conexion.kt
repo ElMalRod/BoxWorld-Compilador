@@ -2,18 +2,43 @@ package com.elmalrod.boxworld
 
 import android.content.Context
 import android.os.AsyncTask
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import okhttp3.Response
 import java.io.*
 import java.net.Socket
 
 class Conexion(private val context: Context) {
     private val analista = Analista()
+    var mensaje17 = "aun nada"
+    var otro =String
     fun enviarMensajes(mensajes: String) {
         val lineas = mensajes.split("\n") // Dividir mensajes en líneas separadas por '\n'
 
         SendMessageTask(context).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, *lineas.toTypedArray())
     }
+    fun getResponse(): String? {
+        return mensaje17
+    }
+    fun setMensaje(m: String) {
+        mensaje17 = m
+        notifyMensajeActualizado()
+    }
+
+    private val listeners = mutableListOf<() -> Unit>()
+
+    fun addMensajeListener(listener: () -> Unit) {
+        listeners.add(listener)
+    }
+
+    fun removeMensajeListener(listener: () -> Unit) {
+        listeners.remove(listener)
+    }
+
+    fun notifyMensajeActualizado() {
+        listeners.forEach { it() }
+    }
+
+
 
 
     private inner class SendMessageTask(private val context: Context) : AsyncTask<String, Void, Boolean>() {
@@ -36,20 +61,25 @@ class Conexion(private val context: Context) {
                     bufferedReader.close()
                     inputStream.close()
 
+
                     // Save response to a file
                     val file = File(context.filesDir, "errores.xml")
                     val fileWriter =
                         FileWriter(file, false) // Append to the file instead of overwriting it
                     fileWriter.write("$response\n")
                     fileWriter.close()
+
+
                     // Llamar a la función leerArchivo
-                    //    analista.leerArchivo()
+                       analista.leerArchivo()
                     // Print the file path to the console
                     val filePath = file.absolutePath
                     println("File saved to: $filePath")
 
-                    println("si llego el error: $response")
+                    println("Server mando archivo: $response")
+                    setMensaje(response)
                 }
+
 
                 socket.close()
                 return true
@@ -68,6 +98,7 @@ class Conexion(private val context: Context) {
                     .show()
             }
         }
+
     }
 }
 

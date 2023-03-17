@@ -8,9 +8,8 @@ package com.elmalrod.boxworld.AnalizadoresXML;
 import java_cup.runtime.*;
 import java.util.LinkedList;
 import java.util.ArrayList;
-
-import com.elmalrod.boxworld.Controladores.ErroresTabla;
 import com.elmalrod.boxworld.Controladores.Tabla;
+import com.elmalrod.boxworld.Controladores.ErroresTabla;
 import java.util.List;
 import java_cup.runtime.XMLElement;
 
@@ -152,6 +151,8 @@ public class parser extends java_cup.runtime.lr_parser {
     }
     public List<TReporte> display()
     { return TablaRE;}
+    public List<TReporte> display1()
+        { return TablaRE;}
 
 
 
@@ -210,7 +211,7 @@ class CUP$parser$actions {
           case 2: // errors ::= ERRORS_START element ERRORS_END 
             {
               Object RESULT =null;
-		 f.listaReportes(TablaRE);
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("errors",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -237,7 +238,7 @@ class CUP$parser$actions {
           case 5: // error_tag ::= ERROR_START error_content_list ERROR_END 
             {
               Object RESULT =null;
-		 TReporte data = new TReporte(a1, e1, i1, o1, u1); TablaRE.add(data);  
+		 TReporte data = new TReporte(a1, e1, i1, o1, u1); TablaRE.add(data); System.out.println("AGREGANDO ERRORES");  
               CUP$parser$result = parser.getSymbolFactory().newSymbol("error_tag",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

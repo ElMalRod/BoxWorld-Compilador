@@ -5,6 +5,7 @@ import java_cup.runtime.*;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import com.elmalrod.boxworld.Controladores.Tabla;
+import com.elmalrod.boxworld.Controladores.ErroresTabla;
 import java.util.List;
 //------> Codigo para el parser,variables, metodos
 parser code
@@ -36,6 +37,8 @@ parser code
     }
     public List<TReporte> display()
     { return TablaRE;}
+    public List<TReporte> display1()
+        { return TablaRE;}
 
 :}
 
@@ -56,12 +59,12 @@ start with document;
 
 document ::= errors;
 
-errors ::= ERRORS_START element ERRORS_END {: f.listaReportes(TablaRE);:};
+errors ::= ERRORS_START element ERRORS_END;
 
 element ::= error_tag
             | element error_tag;
 
-error_tag ::= ERROR_START error_content_list ERROR_END {: TReporte data = new TReporte(a1, e1, i1, o1, u1); TablaRE.add(data);  :};
+error_tag ::= ERROR_START error_content_list ERROR_END {: TReporte data = new TReporte(a1, e1, i1, o1, u1); TablaRE.add(data); System.out.println("AGREGANDO ERRORES");  :};
 
 error_content_list ::= error_content
                       |error_content error_content_list;

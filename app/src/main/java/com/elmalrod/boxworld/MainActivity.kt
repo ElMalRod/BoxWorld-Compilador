@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.LinearLayout
+import android.widget.*
 import com.elmalrod.boxworld.AnalizadoresXML.Lexer
 import com.elmalrod.boxworld.AnalizadoresXML.TReporte
 import com.elmalrod.boxworld.AnalizadoresXML.parser
+import com.elmalrod.boxworld.AnalizadoresXML.parser.TablaRE
+import com.elmalrod.boxworld.Controladores.ErroresTabla
 import com.elmalrod.boxworld.Controladores.Tabla
 import java.io.FileReader
 
@@ -18,27 +17,35 @@ import java.io.FileReader
 class MainActivity : AppCompatActivity() {
 
     private val conexion = Conexion(this)
+    val erroresTabla = ErroresTabla() // instanciar la clase ErroresTabla
+
+    private lateinit var textView4: TextView
+
     private val READ_REQUEST_CODE: Int = 42
 
     @SuppressLint("WrongViewCast")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        textView4 = findViewById(R.id.textView4)
+
 
         val sendButton = findViewById<Button>(R.id.button)
         sendButton.setOnClickListener {
             val mensaje = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
             conexion.enviarMensajes(mensaje)
+            val stringBuilder = StringBuilder()
+            erroresTabla.listaReportes(TablaRE, textView4)
+
+
         }
+
 
         val buttonLoadFile = findViewById<Button>(R.id.button_tabla)
         buttonLoadFile.setOnClickListener {
             //analizar errores
-            val lexer = Lexer(FileReader("/data/user/0/com.elmalrod.boxworld/files/errores.xml"))
-            val sintactico = parser(lexer)
-            sintactico.parse()
-            var TablaRE: List<TReporte> = ArrayList()
-            TablaRE = sintactico.display()
 
             //val listaDeReportes: List<TReporte> = obtenerListaDeReportes()
             val tabla = Tabla(this, TablaRE)
@@ -75,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, WorldActivity::class.java)
         startActivity(intent)
     }
+
 
 }
 

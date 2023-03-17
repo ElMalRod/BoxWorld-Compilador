@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.MinWidth">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="412dp"
-        android:layout_height="496dp"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="1dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
     <EditText
         android:id="@+id/editTextTextMultiLine2"
         android:layout_width="394dp"
@@ -41,8 +28,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="102dp"
+        android:layout_height="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.702"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.981" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.203">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textViewWorld"
+        android:layout_width="408dp"
+        android:layout_height="613dp"
+        android:text="Mundos:"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="4dp" />
 
 </android.support.constraint.ConstraintLayout>
